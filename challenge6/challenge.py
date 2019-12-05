@@ -12,7 +12,7 @@ def combine():
     for stu in students_sheet.values:
         if stu[2] != '学习人数':
             for time in time_sheet.values:
-                if stu[1] == time[1]:
+                if time[1] == stu[1]:
                     combine_sheet.append(list(stu) + [time[2]])
 
     wb.save('courses.xlsx')
@@ -25,7 +25,7 @@ def split():
             split_name.append(item[0].strftime("%Y"))
 
     for name in set(split_name):
-        wb_temp = Workbook
+        wb_temp = Workbook()
         wb_temp.remove(wb_temp.active)
         ws = wb_temp.create_sheet(title=name)
         ws.append(['创建时间', '课程名称', '学生人数', '学习时间'])
@@ -33,7 +33,7 @@ def split():
             if item_by_year[0] != '创建时间':
                 if item_by_year[0].strftime("%Y") == name:
                     ws.append(item_by_year)
-        wb_temp.save = ('{}.xisx'.format(name))
+        wb_temp.save('{}.xlsx'.format(name))
 
 if __name__ == '__main__':
     combine()
