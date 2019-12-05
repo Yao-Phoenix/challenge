@@ -1,13 +1,11 @@
-<html lang="zh-CN">
+<html>
     <head>
-        <meta cahrset="UTF-8">
-        <title>Index</title>
+        <h1>Index</h1>
     </head>
     <body>
-        <ul>
-            {% for file in files %}
-                <li><a href={{ url_for'file', file_id=file.id }}>{{ file.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% for file in files %}
+            <li><a href="{{ url_for('file', file_id=file.id) }}">{{ file.title }}</a></li>
+        {% endfor %}
     </body>
 </html>
+

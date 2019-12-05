@@ -21,10 +21,10 @@ class File(db.Model):
     category = db.relationship('Category')
     content = db.Column(db.Text)
 
-    def __init__(self,  title, create_time, category_id, content):
+    def __init__(self, title, create_time, category, content):
         self.title = title
         self.create_time = create_time
-        self.category_id = category_id
+        self.category = category
         self.content = content
 
 class Category(db.Model):
@@ -38,7 +38,8 @@ class Category(db.Model):
     def __init__(self, name):
         self.name = name
 
-def insert_dates():
+def insert_datas():
+    db.create_all()
     java = Category('java')
     python = Category('python')
     file1 = File('Hello Java', datetime.utcnow(), java, 'File Content - Jave is cool!')
