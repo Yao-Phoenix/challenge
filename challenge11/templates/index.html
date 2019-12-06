@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <h1>Index</h1>
+    </head>
+    <body>
+        {% for file in files %}
+            <li>
+                <a href="{{ url_for('file', file_id=file.id) }}">{{ file.title }}</a>
+                {% for tag in file.tags %} 
+                    <span>{{ tag }}</span>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </body>
+</html>
+
