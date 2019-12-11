@@ -26,10 +26,13 @@ class GithubSaveSpider(scrapy.Spider):
             request.meta['item'] = item
             yield request
 
+            '''
         span = response.xpath('//button[@disabled="disabled"]/text()')
         if len(span) == 0 or span[-1].extract() != 'Next':
             next_url = response.css(
                     'div.BtnGroup a:last-child::attr(href)').extract_first()
+                    '''
+            next_url = response.css('div.BtnGroup a::attr(href)').extract()[-1]
             yield response.follow(next_url, self.parse)
 
     def parse_page(self, response):
