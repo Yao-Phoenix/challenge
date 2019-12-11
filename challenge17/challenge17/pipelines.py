@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from sqlalchemy.orm import sessionmaker
-from challenge16.models import Repository, engine
+from challenge17.models import Repository, engine
 from datetime import datetime
 # Define your item pipelines here
 #
@@ -8,7 +8,7 @@ from datetime import datetime
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class Challenge16Pipeline(object):
+class Challenge17Pipeline(object):
     def process_item(self, item, spider):
         item['update_time'] = datetime.strptime(item['update_time'], '%Y-%m-%dT%H:%M:%SZ')
         self.session.add(Repository(**item))

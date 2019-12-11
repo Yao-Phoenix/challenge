@@ -8,7 +8,7 @@
 from scrapy import signals
 
 
-class Challenge16SpiderMiddleware(object):
+class Challenge17SpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.

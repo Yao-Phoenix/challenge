@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for challenge16 project
+# Scrapy settings for challenge17 project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -47,13 +47,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'challenge16.middlewares.Challenge16SpiderMiddleware': 543,
+#    'challenge17.middlewares.Challenge17SpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'challenge16.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'challenge17.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'challenge16.pipelines.Challenge16Pipeline': 300,
+    'challenge17.pipelines.Challenge17Pipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
