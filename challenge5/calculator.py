@@ -26,11 +26,13 @@ INCOME_TAX_QUICK_Lookup_TABLE = [
 
 class Args(object):
     def __init__(self):
+        '''
         self.options = self._options()
 
     def _options(self):
+    '''
         try:
-            opts, _ = getopt(sys.argv[1:], 'hC:c:d:o', ['help'])
+            opts, args = getopt(sys.argv[1:], 'hC:c:d:o:', ['help'])
         except GetoptError:
             print('Parameter Error')
             exit()
@@ -39,6 +41,11 @@ class Args(object):
             print('Usage: calculator.py -C cityname -c configfile -d \
                     userdata -o resultdata')
             exit()
+        self.city_path = options['-C']
+        self.config_path = options['-c']
+        self.userdata_path = options['-d']
+        self.export_path = options['-o']
+        '''    
         return options
 
     def _value_after_option(self, option):
@@ -60,7 +67,7 @@ class Args(object):
     @property
     def export_path(self):
         return self._value_after_option('-o')
-
+'''
 args = Args()
 
 class Config(object):
@@ -162,7 +169,7 @@ class IncomeTaxCalculator(Process):
             tax, remain = self.calc_social_tax_and_remain(income)
             
             return [employee_id, income, social_insurance_money, tax, \
-                    remain, datatime.now().strftime('%Y-%m-%d %H:%M:%S')]
+                    remain, datetime.now().strftime('%Y-%m-%d %H:%M:%S')]
     def run(self):
         while True:
             try:
