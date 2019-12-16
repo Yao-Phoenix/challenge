@@ -7,12 +7,13 @@ from flask_doc.items import FlaskDocItem
 class FlaskSpider(scrapy.spiders.CrawlSpider):
     name = 'flask'
     
-    start_urls = ['http://flask.pocoo.org/docs/1.0']
+    start_urls = ['https://flask.palletsprojects.com/en/1.0.x/']
     rules = (Rule(LinkExtractor(
-        allow='http://flask.pocoo.org/docs/1.0/*'), callback='parse',
+        allow=('https://flask.palletsprojects.com/en/1.0.x/*'),
+        callback='parse_text',
         follow=True),)
     
-    def parse(self, response):
+    def parse_text(self, response):
         item = FlaskDocItem()
         item['url'] = response.url
         item['text'] = ' '.join(response.xpath('//text()').extract())
