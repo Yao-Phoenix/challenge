@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
 import pandas as pd
+
 def co2():
     data = pd.read_excel('ClimateChange.xlsx')
     data = data[data['Series code'] == 'EN.ATM.CO2E.KT'].set_index('Country code')
@@ -15,11 +15,9 @@ def co2():
     highest_emissions = df.sort_values(by='Sum emissions', ascending=False) \
             .groupby('Income group').head(1).set_index('Income group')
     highest_emissions.columns = ['Highest emission country', 'Highest emissions']
-    lowest_emissions = df.sort_values(by='Sum emissions').groupby('Income group') \
-            .head(1).set_index('Income group')
+    lowest_emissions = df[df['Sum emissions'] > 0].sort_values(by='Sum emissions'
+            ).groupby('Income group').head(1).set_index('Income group')
     lowest_emissions.columns = ['Lowest emission country', 'Lowest emissions']
- 
-
     return pd.concat([sum_emissions, highest_emissions, lowest_emissions], 1)
 
 if __name__ == '__main__':
