@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression as lr
 
 def Temperature():
+    
     temp = pd.read_csv('GlobalSurfaceTemperature.csv')
     temp = temp.iloc[:, 1:].set_index(
             pd.to_datetime(temp.Year.astype('str')))
@@ -23,11 +24,17 @@ def Temperature():
 
     model_median = lr().fit(data, df['1970': '2010'].Median)
     median = pd.np.round(model_median.predict(test), 3)
+    m = [float('{:.3f}'.format(i)) for i in median]
+    
     model_upper = lr().fit(data, df['1970': '2010'].Upper)
     upper = pd.np.round(model_upper.predict(test), 3)
+    u = [float('{:.3f}'.format(i)) for i in upper]
+    
     model_lower = lr().fit(data, df['1970': '2010'].Lower)
     lower = pd.np.round(model_lower.predict(test), 3)
-    return list(upper), list(median), list(lower)
+    l = [float('{:.3f}'.format(i)) for i in lower]
+    
+    return m, u, l
 
 if __name__ == '__main__':
     Temperature()
