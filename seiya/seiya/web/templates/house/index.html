@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}链家网租房数据分析{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ url_for('index') }}">首页</a></li>
+    <li class="breadcrumb-item active" aria-current="page">链家网租房数据分析</li>
+  </ol>
+</nav>
+<div class="row">
+  <div class="col">
+    <div class="card m-5">
+      <div class="card-body">
+        <h5 class="card-title">热门租房小区 Top10</h5>
+        <p class="card-text">房源数量排名前十的小区</p>
+        <a href="{{ url_for('house.count_top10') }}" class="btn btn-primary">详情</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card m-5">
+      <div class="card-body">
+        <h5 class="card-title">户型分布</h5>
+        <p class="card-text">房源中每种户型所占百分比</p>
+        <a href="{{ url_for('house.type') }}" class="btn btn-primary">详情</a>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card m-5">
+      <div class="card-body">
+        <h5 class="card-title">面积分布</h5>
+        <p class="card-text">房源的面积分布</p>
+        <a href="{{ url_for('house.area') }}" class="btn btn-primary">详情</a>
+      </div>
+    </div>
+  </div>
+</div>
+     
+<div class="row">
+  <div class="col">
+    <div class="card m-5">
+      <div class="card-body">
+        <h5 class="card-title">租金最贵小区 Top10</h5>
+        <p class="card-text">每种户型租金排名前十的小区</p>
+        <a href="{{ url_for('house.rent') }}" class="btn btn-primary">详情</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

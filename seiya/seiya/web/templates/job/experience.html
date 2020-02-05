@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}工作经验统计{% endblock %}
+
+{% block content %}
+  <nav aria-label='breadcrumb'>  <!-- 面包屑 -->
+    <ol class='breadcrumb'>
+        <li class='breadcrumb-item'><a href="{{ url_for('index') }}">首页</a></li>
+        <li class='breadcrumb-item'><a href="{{ url_for('job.index') }}">拉勾网职位数据分析</a></li>
+      <li class='breadcrumb-item active' aria-current='page'>工作经验统计</li>
+    </ol>
+  </nav>
+  <div class='my-5' id='chart'></div>  <!-- 创建图表容器 -->
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+  <script>
+    $.getJSON('/job/experience.json', function (data) {    
+      var chart = new G2.Chart({
+        container: 'chart',
+        forceFit: true,
+        height: 500
+      });
+      chart.source(data, {
+        percent: {
+          formatter: percent => (percent * 100).toFixed(2) + '%'
+        }
+      });
+      chart.coord('theta', {
+        radius: 0.75
+      });
+      chart.tooltip({
+        showTitle: false,
+        itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>'
+      });
+      chart.intervalStack().position('percent').color('experience').label('percent', {
+       formatter: (percent, experience) => experience.point.experience + ': ' + percent
+       })
+      .tooltip('experience*percent', (experience, percent) => {
+        percent = (percent * 100).toFixed(2) + '%'
+        return {
+          name: experience,
+          value: percent
+        };
+      }).style({
+        lineWidth: 1,
+        stroke: '#fff'
+      });
+        chart.render();
+    });
+  </script>
+{% endblock %}

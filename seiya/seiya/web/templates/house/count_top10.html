@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}热门租房小区 Top10{% endblock %}
+
+{% block content %}
+  <nav aria-label='breadcrumb'>  <!-- 面包屑 -->
+    <ol class='breadcrumb'>
+        <li class='breadcrumb-item'><a href="{{ url_for('index') }}">首页</a></li>
+        <li class='breadcrumb-item'><a href="{{ url_for('house.index') }}">链家网租房数据分析</a></li>
+      <li class='breadcrumb-item active' aria-current='page'>热门租房小区 Top10</li>
+    </ol>
+  </nav>
+  <div class='my-5' id='c1'></div>  <!-- 创建图表容器 -->
+  <table class='table table-striped my-5'>  <!-- 数据表格 -->
+    <thead>
+      <tr>
+        <th scope='col'>排名</th>
+        <th scope='col'>小区</th>
+        <th scope='col'>数量</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in query %}
+        <tr>
+          <th scope='row'>{{ loop.index }}</th>
+          <td>{{ i.plot }}</td>
+          <td>{{ i.counts }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block js %}
+  {{ super() }}
+  <script>
+    const data = {{ query | tojson }};
+    const chart = new G2.Chart({
+      container: 'c1',
+      forceFit: true,
+      height: 500
+    });
+    chart.source(data);
+    chart.scale('counts', {tickInterval: 10, alias: '小区数量'});
+    chart.interval().position('plot*counts');
+    chart.render();
+  </script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}面积分布{% endblock %}
+
+{% block content %}
+  <nav aria-label='breadcrumb'>  <!-- 面包屑 -->
+    <ol class='breadcrumb'>
+        <li class='breadcrumb-item'><a href="{{ url_for('index') }}">首页</a></li>
+        <li class='breadcrumb-item'><a href="{{ url_for('house.index') }}">链家网租房数据分析</a></li>
+      <li class='breadcrumb-item active' aria-current='page'>面积分布</li>
+    </ol>
+  </nav>
+  <div class='my-5' id='c1'></div>  <!-- 创建图表容器 -->
+{% endblock %}
+
+{% block js %}
+  {{ super() }}
+  <script>
+    $.getJSON('/house/area.json', function (data) {
+      const ds = new DataSet();
+      const dv = ds.createView('area').source(data);
+      dv.transform({
+          type: 'bin.histogram',
+          field: 'area',
+          binWidth: 10, 
+          as: [ 'area', 'count' ]
+          });
+
+      const chart = new G2.Chart({
+        container: 'c1',
+        forceFit: true,
+        height: 500
+      });
+      chart.source(dv, {
+        areas: {
+          tickInterval: 10
+        }
+      });
+      chart.tooltip({
+        crosshairs: false,
+        position: 'top',
+        inPlot: false
+      });
+    chart.interval().position('area*count');
+    chart.render();
+    });
+  </script>
+{% endblock %}

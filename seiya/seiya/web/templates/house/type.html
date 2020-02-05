@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}户型分布{% endblock %}
+
+{% block content %}
+  <nav aria-label='breadcrumb'>  <!-- 面包屑 -->
+    <ol class='breadcrumb'>
+        <li class='breadcrumb-item'><a href="{{ url_for('index') }}">首页</a></li>
+        <li class='breadcrumb-item'><a href="{{ url_for('house.index') }}">链家网租房数据分析</a></li>
+      <li class='breadcrumb-item active' aria-current='page'>户型分布</li>
+    </ol>
+  </nav>
+  <div class='my-5' id='chart'></div>  <!-- 创建图表容器 -->
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+  <script>
+    $.getJSON('/house/type.json', function (data) {
+      var chart = new G2.Chart({
+        container: 'chart',
+        forceFit: true,
+        height: 500
+      });
+      chart.source(data, {
+        percent: {
+          formatter: percent => (percent * 100).toFixed(2) + '%'
+        }
+        });
+      chart.coord('theta', {
+        radius: 0.75
+      });
+      chart.intervalStack().position('percent').color('type').label('percent', {
+        formatter: (percent, item) => item.point.type + ': ' + percent
+      })
+      .tooltip('type*percent', (type, percent) => {
+        percent = (percent * 100).toFixed(2) + '%'
+        return {
+          name: type,
+          value: percent
+        };
+       }).style({
+        lineWidth: 1,
+        stroke: '#fff'
+        });
+      chart.render();
+      });
+  </script>
+{% endblock %}
